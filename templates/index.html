@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelDF | Endpoint Security Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand">⬡ Sentinel<span>DF</span></div>
+  <p class="nav-label">MONITORING</p>
+  <a class="nav active" href="/">▦ Dashboard</a>
+  <a class="nav" href="#liveActivity">◷ File Activity</a>
+  <a class="nav" href="#downloads">⇩ Download Security</a>
+  <a class="nav" href="#processInventory">⌘ Applications & Processes</a>
+  <a class="nav" href="#websiteMonitor">◎ Website Monitor</a>
+  <a class="nav" href="#shodanIntel">⌕ Shodan Intelligence</a>
+  <a class="nav" href="#alerts">⚠ Security Alerts</a>
+  <div class="sidebar-bottom">DEFENSIVE LAB<br><span>Local monitoring console</span></div>
+</aside>
+<main class="main">
+<header>
+  <div><p class="eyebrow">ENDPOINT SECURITY / OVERVIEW</p><h1>SentinelDF Security Monitor</h1>
+  <p class="subtitle">File activity, download inspection, process inventory and behavioral alerts.</p></div>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+    <div class="lab-tag"><span class="dot"></span> LOCAL LAB</div>
+    <a href="{{ url_for('logout') }}" class="btn-secondary" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:10px 16px;border-radius:8px">Log out</a>
+  </div>
+</header>
+<section class="status-banner"><div><p class="eyebrow">DETECTOR STATUS</p><h2 id="statusText">● Checking status...</h2><p id="statusDescription">Connecting to monitoring backend.</p></div>
+<div class="actions"><button id="startBtn" class="btn-primary">▶ Start monitoring</button><button id="stopBtn" class="btn-secondary">■ Stop</button></div></section>
+<section class="metrics">
+<article class="metric"><div class="metric-icon blue">⌁</div><p>File events</p><h2 id="events">0</h2><small>Events received by backend</small></article>
+<article class="metric"><div class="metric-icon purple">◉</div><p>Latest entropy</p><h2 id="entropy">Waiting for data</h2><small id="entropyDetails">Waiting for file analysis</small></article>
+<article class="metric"><div class="metric-icon orange">⚠</div><p>Security alerts</p><h2 id="alertCount">0</h2><small>Recorded detections</small></article>
+<article class="metric"><div class="metric-icon green">◎</div><p>Process analysis</p><h2 id="processStatus">Connecting...</h2><small>Observe-only inventory</small></article>
+</section>
+<section class="content-grid">
+<section class="panel alerts-panel" id="liveActivity"><div class="panel-heading"><div><h3>Live File Activity</h3><p>Filesystem events from configured user folders</p></div><span class="tag">AUTO-REFRESH</span></div>
+<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr style="color:#8d9bb5"><th style="padding:12px">Time</th><th style="padding:12px">Event</th><th style="padding:12px">File / Path</th></tr></thead><tbody id="eventsTable"><tr><td colspan="3" style="padding:20px">Loading file activity...</td></tr></tbody></table></div></section>
+<article class="panel"><div class="panel-heading"><div><h3>Detection pipeline</h3><p>Behavioral analysis stages</p></div><span class="tag">MODULES</span></div>
+<div class="pipeline-row"><div class="pipeline-icon">⌁</div><div><strong>File system watcher</strong><p>Track create, modify, rename and delete events</p></div><span class="stage" id="watcherStage">CHECKING</span></div>
+<div class="pipeline-row"><div class="pipeline-icon">⇩</div><div><strong>Download inspector</strong><p>File type, size and SHA-256 metadata</p></div><span class="stage" id="downloadStage">CHECKING</span></div>
+<div class="pipeline-row"><div class="pipeline-icon">◉</div><div><strong>Entropy analyzer</strong><p>Inspect available file content</p></div><span class="stage" id="entropyStage">WAITING</span></div>
+<div class="pipeline-row"><div class="pipeline-icon">⌘</div><div><strong>Process inventory</strong><p>Observe running process metadata</p></div><span class="stage" id="processStage">CHECKING</span></div>
+<div class="pipeline-row"><div class="pipeline-icon">⚑</div><div><strong>Alert manager</strong><p>Record heuristic detections</p></div><span class="stage" id="alertStage">READY</span></div></article>
+</section>
+<section class="panel" id="downloads"><div class="panel-heading"><div><h3>Download Security</h3><p>Recent files in Downloads. Metadata checks are not a malware verdict.</p></div><button id="refreshDownloadsBtn" class="btn-secondary">↻ Refresh scan</button></div>
+<p id="downloadsSummary" style="color:#8d9bb5">Loading recent downloads...</p>
+<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr style="color:#8d9bb5"><th style="padding:12px">File</th><th style="padding:12px">Type</th><th style="padding:12px">Size</th><th style="padding:12px">SHA-256</th><th style="padding:12px">Assessment</th></tr></thead><tbody id="downloadsTable"><tr><td colspan="5" style="padding:20px">Loading downloads...</td></tr></tbody></table></div>
+<p class="notice" style="margin-top:12px">Executable/script types and path patterns are triage indicators, not proof of malware. Unknown does not mean safe.</p></section>
+<section class="panel" id="processInventory"><div class="panel-heading"><div><h3>Applications & Live Process Inventory</h3><p>Running process metadata and basic review indicators; not a malware verdict.</p></div><span class="tag" id="processInventoryStatus">LOADING</span></div>
+<p id="processSummary" style="color:#8d9bb5">Loading process records...</p><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr style="color:#8d9bb5"><th style="padding:12px">Process</th><th style="padding:12px">PID</th><th style="padding:12px">Executable</th><th style="padding:12px">Indicator</th><th style="padding:12px">Reputation</th><th style="padding:12px">Mode</th></tr></thead><tbody id="processTable"><tr><td colspan="6" style="padding:20px">Loading process inventory...</td></tr></tbody></table></div></section>
+<section class="panel" id="websiteMonitor"><div class="panel-heading"><div><h3>Website Monitor</h3><p>Browser navigation events sent by the optional Chrome/Edge extension. Check VT queries existing reports only.</p></div><span class="tag" id="websiteStage">EXTENSION NEEDED</span></div><p id="websiteSummary" style="color:#8d9bb5">Install the included extension to record visited HTTP(S) pages.</p><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:left"><thead><tr style="color:#8d9bb5"><th style="padding:12px">Time</th><th style="padding:12px">Website</th><th style="padding:12px">Reputation</th><th style="padding:12px">Action</th></tr></thead><tbody id="websitesTable"><tr><td colspan="4" style="padding:20px">No browser events yet.</td></tr></tbody></table></div><p class="notice">Website monitoring requires the included browser extension. Only existing VirusTotal reports are checked; URLs are not submitted. Browser navigation is sent to your local SentinelDF app.</p></section>
+<section class="panel" id="shodanIntel">
+  <div class="panel-heading"><div><h3>Shodan Intelligence & IP Reputation</h3><p>Manual lookups for authorized public IP addresses. This does not scan ports.</p></div><span class="tag">THREAT INTELLIGENCE</span></div>
+  <form id="shodanForm">
+    <label for="shodanIp">Public IP address</label>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
+      <input id="shodanIp" name="ip" type="text" inputmode="decimal" placeholder="Example: 8.8.8.8" required maxlength="45" style="flex:1;min-width:220px;padding:12px;border-radius:8px">
+      <button class="btn-primary" type="submit">Check IP</button>
+    </div>
+  </form>
+  <p id="shodanStatus" class="notice" style="margin-top:14px">Enter an authorized public IP address. Shodan returns recorded exposure data; VirusTotal checks an existing reputation report.</p>
+  <div id="shodanResults" style="overflow-x:auto;margin-top:12px"></div>
+  <p class="notice">Private/reserved IPs are rejected. No active port scan is performed. No report or no detections does not mean safe. VirusTotal requires your existing VIRUSTOTAL_API_KEY setting.</p>
+</section>
+<section class="panel alerts-panel" id="alerts"><div class="panel-heading"><div><h3>Security Alerts</h3><p>Behavioral detections and review items</p></div><span class="tag">LIVE STATUS</span></div>
+<div id="alertsList" class="empty-state"><div class="empty-icon">✓</div><strong>No alerts recorded</strong><p>No activity has met the configured combined detection rule.</p></div></section>
+<footer>SentinelDF • Endpoint security monitoring prototype <span>•</span> Observe-only defensive lab</footer>
+</main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body></html>

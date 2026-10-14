@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | SentinelDF</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b1220;color:#e5edf8;font:15px/1.5 Segoe UI,Arial,sans-serif;padding:24px}
+    .card{width:min(100%,420px);padding:32px;border:1px solid #263750;border-radius:18px;background:#111c2e;box-shadow:0 18px 55px #0005}
+    .brand{color:#65d7c2;font-weight:700;letter-spacing:.12em;font-size:13px}.subtitle{color:#9fb0c8;margin-top:4px}h1{font-size:26px;margin:10px 0 4px}
+    label{display:block;margin:18px 0 7px;color:#cbd7e8}input{width:100%;padding:12px 13px;border:1px solid #344760;border-radius:9px;background:#0b1423;color:#fff;font:inherit}input:focus{outline:2px solid #37bfa7;border-color:transparent}
+    button{width:100%;margin-top:22px;padding:12px;border:0;border-radius:9px;background:#25b99f;color:#06231e;font-weight:700;font-size:15px;cursor:pointer}a{color:#65d7c2;text-decoration:none}a:hover{text-decoration:underline}.links{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px;font-size:14px}.message{padding:10px 12px;border-radius:8px;margin:16px 0 0;background:#4b2630;color:#ffdce2}.success{background:#173b35;color:#b9f8e8}.hint{font-size:12px;color:#8fa2bb;margin-top:18px}
+  </style>
+</head>
+<body><main class="card">
+  <div class="brand">SENTINELDF</div><h1>Welcome back</h1><div class="subtitle">Sign in to your security dashboard.</div>
+  {% if request.args.get('registered') %}<div class="message success">Account created. You can sign in now.</div>{% endif %}
+  {% if error %}<div class="message" role="alert">{{ error }}</div>{% endif %}
+  <form method="post" action="{{ url_for('login', next=request.args.get('next', '')) }}">
+    <label for="username">Username</label><input id="username" name="username" autocomplete="username" required minlength="3">
+    <label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required>
+    <button type="submit">Sign in</button>
+  </form>
+  <div class="links"><a href="{{ url_for('signup') }}">Create account</a><a href="{{ url_for('forgot_password') }}">Forgot password?</a></div>
+  <div class="hint">Use your SentinelDF account credentials.</div>
+</main></body></html>

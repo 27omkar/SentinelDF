@@ -1,0 +1,108 @@
+/* SentinelDF dashboard styling */
+:root {
+  color-scheme: dark;
+  --bg: #0b1020;
+  --panel: #121a2d;
+  --panel-soft: #172238;
+  --border: #26334d;
+  --text: #e9eef8;
+  --muted: #91a0ba;
+  --blue: #62a5ff;
+  --green: #53d6a0;
+  --orange: #ffbd69;
+  --red: #ff7474;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.sidebar {
+  position: fixed; inset: 0 auto 0 0; width: 238px;
+  padding: 28px 18px; background: #0e1628; border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.brand { font-size: 23px; font-weight: 800; letter-spacing: -.8px; margin: 0 8px 38px; }
+.brand span { color: var(--blue); }
+.nav-label, .eyebrow { font-size: 10px; letter-spacing: 1.5px; color: var(--muted); font-weight: 700; }
+.nav-label { margin: 0 10px 8px; }
+.nav { color: #aebbd0; text-decoration: none; padding: 11px 12px; border-radius: 8px; display: block; }
+.nav:hover, .nav.active { color: white; background: #1c2b45; }
+.sidebar-bottom { margin-top: auto; padding: 14px 10px; border-top: 1px solid var(--border); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .7px; }
+.sidebar-bottom span { color: var(--muted); font-weight: 400; letter-spacing: 0; }
+.main { margin-left: 238px; padding: 34px clamp(18px, 3vw, 44px); max-width: 1800px; }
+header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; margin-bottom: 26px; }
+h1 { margin: 4px 0 8px; font-size: clamp(25px, 3vw, 34px); letter-spacing: -1px; }
+h2, h3, p { margin-top: 0; }
+.subtitle { color: var(--muted); margin-bottom: 0; }
+.eyebrow { margin-bottom: 8px; }
+.lab-tag, .tag, .stage { border: 1px solid var(--border); border-radius: 999px; padding: 6px 10px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .8px; white-space: nowrap; }
+.lab-tag { color: var(--green); }
+.dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-right: 7px; }
+.status-banner { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 24px; border: 1px solid var(--border); border-radius: 14px; background: linear-gradient(115deg, #172640, #121a2d); margin-bottom: 22px; }
+.status-banner h2 { font-size: 20px; margin: 0 0 4px; }
+.status-banner p:last-child { color: var(--muted); margin-bottom: 0; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+button { border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; cursor: pointer; font-weight: 700; color: var(--text); background: #1b2941; }
+button:hover:not(:disabled) { filter: brightness(1.12); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.btn-primary { background: #2675d8; border-color: #2675d8; color: white; }
+.btn-secondary { background: #1a263b; }
+.metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-bottom: 22px; }
+.metric, .panel { min-width: 0; border: 1px solid var(--border); border-radius: 12px; background: var(--panel); }
+.metric { padding: 18px; }
+.metric-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; font-size: 18px; margin-bottom: 14px; }
+.blue { background: #1d3657; color: var(--blue); }
+.purple { background: #302747; color: #c4a5ff; }
+.orange { background: #3a2b21; color: var(--orange); }
+.green { background: #18392f; color: var(--green); }
+.metric p { color: var(--muted); margin-bottom: 4px; }
+.metric h2 { font-size: 25px; margin: 0 0 4px; overflow-wrap: anywhere; }
+.metric small { color: var(--muted); font-size: 11px; }
+.content-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(320px, .9fr); gap: 18px; margin-bottom: 18px; align-items: start; }
+.panel { padding: 20px; margin-bottom: 18px; }
+.content-grid .panel { margin-bottom: 0; }
+.panel-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+.panel-heading h3 { margin: 0 0 4px; font-size: 16px; }
+.panel-heading p { margin: 0; color: var(--muted); font-size: 12px; }
+.pipeline-row { display: flex; align-items: center; gap: 11px; padding: 15px 0; border-bottom: 1px solid var(--border); }
+.pipeline-row:last-child { border-bottom: 0; }
+.pipeline-icon { flex: 0 0 34px; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 8px; background: var(--panel-soft); color: var(--blue); font-size: 17px; }
+.pipeline-row div:nth-child(2) { flex: 1; min-width: 0; }
+.pipeline-row strong { font-size: 12px; }
+.pipeline-row p { color: var(--muted); font-size: 11px; margin: 3px 0 0; }
+.stage { font-size: 9px; padding: 4px 7px; }
+table { font-size: 12px; }
+th { font-size: 10px; text-transform: uppercase; letter-spacing: .7px; font-weight: 700; }
+td { color: #d6deed; overflow-wrap: anywhere; }
+tbody tr:hover { background: #172238; }
+.notice { font-size: 11px; color: var(--orange); }
+.empty-state { padding: 28px 12px; text-align: center; color: var(--muted); }
+.empty-state strong { color: var(--text); display: block; margin: 8px 0; }
+.empty-state p { margin-bottom: 0; font-size: 12px; }
+.empty-icon { margin: 0 auto 10px; width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: #18392f; color: var(--green); font-size: 20px; }
+footer { padding: 18px 0 4px; text-align: center; color: var(--muted); font-size: 11px; }
+footer span { padding: 0 5px; }
+@media (max-width: 1100px) {
+  .sidebar { width: 190px; }
+  .main { margin-left: 190px; }
+  .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .content-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 650px) {
+  .sidebar { position: static; width: auto; padding: 14px; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .brand { width: 100%; margin: 0 8px 8px; }
+  .nav-label, .sidebar-bottom { display: none; }
+  .nav { padding: 8px; font-size: 12px; }
+  .main { margin-left: 0; padding: 20px 12px; }
+  header, .status-banner { flex-direction: column; }
+  .metrics { grid-template-columns: 1fr 1fr; gap: 9px; }
+  .metric { padding: 13px; }
+  .metric h2 { font-size: 19px; }
+  .panel { padding: 13px; }
+}
